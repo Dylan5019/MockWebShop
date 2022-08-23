@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <title>All products</title>
+</head>
+
+<body>
+    <h1>Dylan's Products</h1>
+    <form action="/home" method="get">
+        <button>Return To Home</button>
+    </form>
+    <br>
+    <% for (let product of products) { %>
+
+
+
+        <div class="square">
+            <img src="<%= product.productURL %> " alt="<% product.name %> ">
+            <div class="content">
+                <div class="product-name">
+                    <b>
+                        <%= product.name %> (Proudct ID: <%= product.productID %> )
+                    </b>
+                    <div>
+
+                    <% let totalReviewsScore=0; let numOfReviews=0; let avgReview=0; %>
+                    
+                    
+                        <% for (let order of orders) { %>
+                    
+                            <% for( let index=0; index < order.products.length; index++ ) { %>
+                    
+                                <% if (order.products[index].productID == product.productID) { %>
+                                 <% totalReviewsScore += order.products[index].review; %> 
+                                    <% numOfReviews++; %> 
+
+                                <% } %>
+                    
+                                <% } %>
+                                    <% } %>
+
+                                <% avgReview = totalReviewsScore/numOfReviews; %> 
+                                <% avgReview = Math.round((avgReview * 2))/2; %> 
+
+                                <% if (numOfReviews == 0) { %>
+                                No Reviews! 
+                                <% }  else {%>
+                                Review Score: <%= avgReview %>/5
+                                (<%= numOfReviews %> Reviews )
+                                    <% } %> 
+
+                        <% if (product.quantity> 0) { %>
+                            <p> In Stock: <%= product.quantity %>
+                            </p>
+                            <%} else { %>
+                                <p> Out of Stock </p>
+                                <% } %>
+
+                    </div>
+                    <div class="product-price">
+                        $<%= product.price %>.00
+                    </div>
+                </div>
+                <div class="description">
+                    <%= product.description %>
+                </div>
+
+                <div>
+                    <% if (product.quantity> 0) { %>
+
+                        <form action="/products" method="POST">
+                            <input type="hidden" id="productID" name="productID" value="<%= product.productID%>">
+                            <input type="submit" value="Add to Cart">
+                        </form>
+
+                        </p>
+                        <%} %>
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <% } %>
+
+</body>
+
+</html>
