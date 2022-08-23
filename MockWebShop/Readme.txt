@@ -13,7 +13,7 @@ Steps To use:
 2. Unzip the contents of the project folder
 3. Open the Project Folder in a Terminal and Type "npm Install"
 4. After Dependencys have finished installing type "node index.js"
-5. Open a web browser and visit "http://localhost:3000/login" or "http://localhost:3000/"
+5. Open a web browser and visit "http://localhost:8080/login" or "http://localhost:8080/"
 6. Use the Generate Data Button to Create Data
 7. Now the rest of the website can be used
 
